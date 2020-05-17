@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>EuropeAtWar</title>
+
+    <script async src="index.js"></script>
+
+    <style type="text/css">
+        #worldMap {
+            zoom: 5.0;
+        }
+
+        body {
+            margin: 0 auto;
+        }
+
+        #container {
+            font-size: 14px;
+        }
+
+        #content {
+            height: 100%;
+            width: 100%;
+        }
+
+        #content-player {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background: url(./img/tileSand.png) left top repeat;
+            width: 25%;
+        }
+
+        #content-player p {
+            margin-left: 5px;
+        }
+
+        #menu-player {
+            color: #fff;
+            padding-top: 20px;
+            padding-bottom: 30px;
+            background: url(./img/tile.jpg) left top repeat;
+        }
+
+        #content-details-player {
+            color: #484848;
+        }
+
+        #onglets {
+            font: bold 9px Batang, arial, serif;
+            list-style-type: none;
+            padding-bottom: 10px;
+            /* à modifier suivant la taille de la police ET de la hauteur de l'onglet dans #onglets li */
+            /*border-bottom : 1px solid #9EA0A1;*/
+            margin-left: 0;
+            margin-top: 0;
+        }
+
+        #onglets li {
+            float: left;
+            height: 15px;
+            /* à modifier suivant la taille de la police pour centrer le texte dans l'onglet */
+            background: url(./img/tileDry.jpg) left top repeat;
+            margin: 2px 2px 0 2px !important;
+            /* Pour les navigateurs autre que IE */
+            margin: 1px 2px 0 2px;
+            /* Pour IE  */
+            border: 1px solid #9EA0A1;
+            border-radius: 3px;
+            padding: 6px;
+        }
+
+        #onglets li.active {
+            border-bottom: 1px solid #fff;
+            background-color: #fff;
+        }
+
+        #onglets a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 4px;
+            line-height: 6px;
+        }
+
+        #onglets li:hover {
+            background: #fff;
+        }
+
+        #politic-info {
+            /*color: #000;*/
+        }
+
+        #faction-name {
+            text-align: center;
+        }
+
+        #faction-name .oriflamme {
+            text-align: right;
+        }
+
+        #faction-title {
+
+            font-size: 26px;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        .oriflamme {
+            width: 100px;
+            text-align: right;
+        }
+
+        .oriflamme-small {
+            width: 2.4px;
+        }
+
+        #army {
+            /*border: 1px solid red;*/
+            background-color: #fff;
+            /*position: absolute;
+            left: 850px;
+            top: 300px;
+            width: 85px;*/
+            height: 2px;
+            font-size: 0.9px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #army:hover {
+            color: red;
+        }
+
+        .army-zoom {
+            width: 25px !important;
+            height: 15px !important;
+            text-align: center;
+        }
+
+        #army-general {
+            font-size: 11px;
+        }
+
+        #army-number {
+            font-size: 10px;
+        }
+
+        #info-army {
+            background-color: #4a5666;
+            position: fixed;
+            bottom: 0;
+            width: 75%;
+            left: 25%;
+            height: 120px;
+        }
+
+        #info-general-army {
+            display: inline-block;
+            color: #fff;
+            width: 100%;
+            padding: 5px;
+        }
+
+        #info-general-army-close {
+            display: inline-block;
+            float: right;
+            padding-right: 10px;
+        }
+
+        #info-content-region-close {
+            display: inline-block;
+            float: right;
+        }
+
+        .close-army-button {
+            cursor: pointer;
+        }
+
+        .close-army-button:hover {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .close-region-button {
+            cursor: pointer;
+        }
+
+        .close-region-button:hover {
+            color: blue;
+            cursor: pointer;
+        }
+
+        #info-content-small-army {
+            height: 100%;
+            margin: 0px 5px 0px 5px;
+        }
+
+        .small-army {
+            display: inline-block;
+            width: 12.5%;
+            height: 100%;
+            background-color: #2972be;
+            padding: 5px;
+        }
+
+        #timeline {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            height: 15px;
+            left: 40%;
+            position: fixed;
+            top: 0;
+            width: 25%;
+            text-align: center;
+            color: #fff;
+            background: url(./tile.jpg) left top repeat;
+        }
+
+        .timeline-change {
+            float: right;
+            padding-right: 5px;
+            cursor: pointer;
+        }
+
+        #france {
+            background-color: #000;
+        }
+
+        svg {}
+
+        /*#info-region{
+            display: none;
+            padding: 5px;
+        }*/
+
+        .info-region {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: url(./img/tileSand.png) left top repeat;
+            width: 15%;
+        }
+
+        #header-region {}
+
+        #content-region {}
+
+        .regionGroup {
+            cursor: pointer;
+            fill-opacity: 0.5;
+        }
+
+        .regionGroup>path:hover {
+            stroke-width: 0.3 !important;
+            fill-opacity: 0.7;
+        }
+
+        .proprietaire {
+            text-align: center;
+        }
+
+        #image-faction {
+            text-align: center;
+        }
+
+        .faction-flag {
+            width: 80px;
+        }
+
+        .button-style-all {
+            padding: .3em 1em !important;
+            background-color: #ccc !important;
+            color: #000;
+        }
+
+        .pathFog {
+            fill-opacity: 0.7 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <object data="svg/world.svg" type="image/svg+xml" id="svgObject">
+
+        </object>
+    </div>
+</body>
+
+</html>
