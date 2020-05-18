@@ -154,7 +154,7 @@ svgObject.addEventListener("load", function () {
         };
     }
 
-    var urlArmy = '../img/character.png';
+    var urlArmy = '../img/infantry.png';
 
     var svgArmy = '<svg width="100px" height="100px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <image x="10" y="20" width="80" height="80" xlink:href="' + urlArmy + '" /></svg>';
     var svgArmy = '<image x="0" y="0" width="500" height="500" xlink:href="' + urlArmy + '"></image>';
@@ -170,11 +170,39 @@ svgObject.addEventListener("load", function () {
 
                 let idRegion = this.id;
 
-                alert(`You actually clicked #container ${idRegion} itself.`);
+                //alert(`You actually clicked #container ${idRegion} itself.`);
 
                 this.style.strokeWidth = "0.3";
 
-                console.log(idRegion);
+                const regionComponent = document.createElement("div");
+
+                regionComponent.setAttribute("style", "position: fixed; top: 50px; left: 50%; width: 400px; height: 600px; background: url(./img/tilePlastic.jpg) left top repeat;");
+
+                const regionTitleContent = document.createElement("div");
+                regionTitleContent.setAttribute("style", "text-transform: uppercase; display: flex; justify-content: center; align-content: center;");
+                const regionTitle = document.createTextNode(idRegion);
+
+                const regionTypeContent = document.createElement("img");
+                regionTypeContent.setAttribute("style", "width: 100%;");
+                regionTypeContent.setAttribute("src", "./img/grassland.jpg");
+
+                const regionResourceContent = document.createElement("div");
+
+                const regionResourceImage = document.createElement("img");
+                regionResourceImage.setAttribute("style", "width: 60px;");
+                regionResourceImage.setAttribute("src", "./img/grain.png");
+
+                regionResourceContent.appendChild(regionTypeContent);
+                regionResourceContent.appendChild(regionResourceImage);
+
+                regionTitleContent.appendChild(regionTitle);
+
+                regionComponent.appendChild(regionTitleContent);
+                regionComponent.appendChild(regionResourceContent);
+
+                container.appendChild(regionComponent);
+
+                /*console.log(idRegion);
 
                 let foreignObject = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
 
@@ -284,3 +312,22 @@ const regionInfos = [
         }
     }
 ]
+
+const playerCountry = 1;
+
+const countries = [
+
+    {
+        id: 1,
+        name: 'franks'
+    },
+    {
+        id: 2,
+        name: 'wisigoths'
+    },
+    {
+        id: 3,
+        name: 'ostrogoths'
+    }
+
+];
